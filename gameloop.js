@@ -11,7 +11,9 @@ var t0 = new Date().getTime();
  * The game objects
  */
 var objects = [
-    { p: { x: 0, y: 0 }, v: { x: 0, y: 10 }, a: { x: 0, y: 0 } },
+    { p: { x: 0, y: 0 },  v: { x: 0, y: 10 },  a: { x: 0, y: 0 } },
+    { p: { x: 20, y: 0 }, v: { x: 10, y: 10 }, a: { x: 0, y: 0 } },
+    { p: { x: 50, y: 0 }, v: { x: 0, y: 0 },   a: { x: 0, y: 5 } },
   ];
 
 /**
@@ -57,7 +59,7 @@ function start() {
       callbacks.forEach(function(cb) { cb() });
       task_is_running = false;
     }
-  }, 1000);
+  }, 10);
 }
 
 /**

@@ -1,5 +1,5 @@
 // Declare app level module which depends on filters, and services
-angular.module('letsjs', ['ngRoute', 'letsjs.controllers']).
+angular.module('letsjs', ['ngRoute', 'letsjs.controllers', 'letsjs.services']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/', {

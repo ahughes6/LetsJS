@@ -1,2 +1,10 @@
-div.
-  hello, {{ hello }}
+h1.
+  the current state
+div
+  p.
+    the current game state is shown in the grey area below:
+  div(style='position:relative;background:#ddd;width:90%;height:500px;overflow:hidden;')
+    div(ng-repeat='o in objects',style='position:absolute;top:{{o.p.y}}px;left:{{o.p.x}}px;width:50px;height:50px;background:black;')
+  p
+    {{ objects }}
+
