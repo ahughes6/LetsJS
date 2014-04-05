@@ -16,6 +16,11 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 app.set('server', server);
 
+// start gameloop
+var gameloop = require('./gameloop');
+gameloop.start();
+gameloop.callbacks.push(function() { io.sockets.emit('state', gameloop.objects) });
+
 // set up socket.io
 io.sockets.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
