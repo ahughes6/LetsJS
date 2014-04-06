@@ -5,6 +5,24 @@
 var players = require('./player');
 
 /**
+ * Board Variables
+ */
+var width = 1600;
+var height = 800;
+var pipewidth = 100;
+var pipecolor = 'purple';
+var pipespeed = 100;
+
+
+/**
+ * Gamestate variables
+ */
+var lastpipeid = 0;
+var lastpipeadded; // initialized to undefined.
+                   // we need this to know when to add the next pipe
+var difficulty = 12;
+
+/**
  * Last time the game loop was executed
  */
 var t0 = new Date().getTime();
@@ -21,6 +39,36 @@ var objects = {
 var callbacks = [];
 
 /**
+ * Add pipe to board with random hole position, hole size based
+ * on current difficulty.
+ */
+function addpipecolumn() {
+  var pipeid = 'pipe' + lastpipeid;
+  var holesize = height-(height/15)*difficulty;
+  var holelocation = Math.floor(Math.random()*(height-holesize));
+  ++lastpipeid;
+  objects[pipeid+'top'] =
+    {
+      p: {x: width, y:0},
+      v: {x: -pipespeed, y: 0},
+      a: {x: 0, y: 0},
+      width: pipewidth,
+      height: holelocation,
+      color: pipecolor,
+    };
+  objects[pipeid+'bot'] =
+    {
+      p: {x: width, y:(holelocation+holesize)},
+      v: {x: -pipespeed, y: 0},
+      a: {x: 0, y: 0},
+      width: pipewidth,
+      height: height-(holelocation+holesize),
+      color: pipecolor,
+    };
+  lastpipeadded = objects[pipeid+'top'];
+}
+
+/**
  * The actual game loop.
  */
 function loop() {
@@ -28,7 +76,9 @@ function loop() {
   var current = new Date().getTime(); // get current time
   var t = (current - t0) / 1000.0; // calculate time passed since last execution (in seconds)
   t0 = current; // save current time for next execution
-  
+  if(lastpipeadded == null || lastpipeadded.p['x'] < width-(width/2)) {
+    addpipecolumn();
+  }
   // update object positions
   Object.keys(objects).forEach(function(id) { newton(t, objects[id]); });
   Object.keys(objects).forEach(function(id) { checkCollision(id, objects[id]); });
@@ -51,10 +101,10 @@ function newton(t, obj) {
  * Checks the object for collisions
  */
 function checkCollision(id, obj) {
-  var bounds = {x: 600, y: 500};
+  var bounds = {x: width, y: height};
 
   // check lower bound
-  if (obj.p.y > bounds.y) {
+  if ('player' in obj && obj.p.y > bounds.y) {
     obj.player.die();
   }
   

@@ -1,5 +1,6 @@
 var playerlist = {};
 var gameloop = require('./gameloop');
+var playersize = 40;
 
 function add(socket, nick, die) {
   var x = fitNewPlayerIn();
@@ -14,8 +15,8 @@ function add(socket, nick, die) {
       p: {x: x, y:20},
       v: {x: 0, y: 0},
       a: {x: 0, y: 1000},
-      width: 70,
-      height: 70,
+      width: playersize,
+      height: playersize,
       color: 'white',
       player: playerlist[socket.id],
     };
