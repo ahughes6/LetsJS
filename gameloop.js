@@ -2,6 +2,8 @@
  * The gameloop
  */
 
+var players = require('./player');
+
 /**
  * Last time the game loop was executed
  */
@@ -28,6 +30,7 @@ function loop() {
   
   // update object positions
   Object.keys(objects).forEach(function(id) { newton(t, objects[id]); });
+  Object.keys(objects).forEach(function(id) { checkCollision(id, objects[id]); });
 }
 
 /**
@@ -35,18 +38,24 @@ function loop() {
  */
 function newton(t, obj) {
   var coords = ['x', 'y'];
-  var bounds = {x: 600, y: 500}; 
   coords.forEach(function(coord) {
     // update position
     obj.p[coord] += obj.v[coord] * t;    
     // update velocity
     obj.v[coord] += obj.a[coord] * t;
-    if(obj.p[coord] > bounds[coord]) {
-      obj.p[coord] = bounds[coord];
-      obj.v[coord] = - obj.v[coord];
-    }
   });
 };
+
+/**
+ * Checks the object for collisions
+ */
+function checkCollision(id, obj) {
+  var bounds = {x: 600, y: 500};
+  // check lower bound
+  if (obj.p.y > bounds.y) {
+    obj.player.die();
+  }
+}
 
 /**
  * Start executing the game loop at a certain interval.

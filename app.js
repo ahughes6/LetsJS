@@ -29,12 +29,14 @@ io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
   socket.on('flap', function () {
     try {
-      gameloop.objects[socket.id].v.y = -250;
+      gameloop.objects[socket.id].v.y = -350;
     } catch (e) {
     }
   });
   socket.on('join', function (data) {
-    players.add(socket, data.nick);
+    players.add(socket, data.nick, function() {
+      socket.emit('die', {});
+    });
     io.sockets.emit('players', players.getList());
   });
   socket.on('leave', function (data) {

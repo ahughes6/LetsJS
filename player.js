@@ -1,29 +1,26 @@
 var playerlist = {};
 var gameloop = require('./gameloop');
 
-function add(socket, nick) {
+function add(socket, nick, die) {
   var x = fitNewPlayerIn();
   playerlist[socket.id] = 
     {
-      socket: socket,
+      id: socket.id,
       nick: nick,
+      die: die,
     };
   gameloop.objects[socket.id] =
     {
       p: {x: x, y:20},
       v: {x: 0, y: 0},
       a: {x: 0, y: 1000},
-      player: nick,
+      player: playerlist[socket.id],
     };
 }
 
 function remove(socket) {
   delete playerlist[socket.id];
   delete gameloop.objects[socket.id];
-}
-
-function die(player) {
-  console.log("a player died");
 }
 
 function getList() {
@@ -64,8 +61,8 @@ function fitNewPlayerIn() {
 var players = {
   add: add,
   remove: remove,
-  die: die,
   getList: getList,
+  getPlayer: getPlayer,
 }
 
 module.exports = players;

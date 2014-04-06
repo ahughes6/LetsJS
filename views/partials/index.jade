@@ -1,6 +1,6 @@
 div(style='width: 100%;height: 100%;position: absolute;top:0;left:0;' ng-click='flap()')
   div(ng-repeat='o in objects',style='position:absolute;top:{{o.p.y}}px;left:{{o.p.x}}px;width:70px;height:70px;background:white;border:5px solid black;color:white;text-align:center;padding-left:70px;padding-top:70px;')
-    strong {{o.player}}
+    strong {{o.player.nick}}
 
 div(class='container-fluid')
   div(class='row')
