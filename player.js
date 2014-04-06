@@ -16,6 +16,7 @@ function add(socket, nick, die) {
       a: {x: 0, y: 1000},
       width: 70,
       height: 70,
+      color: 'white',
       player: playerlist[socket.id],
     };
 }
