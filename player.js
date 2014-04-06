@@ -14,6 +14,8 @@ function add(socket, nick, die) {
       p: {x: x, y:20},
       v: {x: 0, y: 0},
       a: {x: 0, y: 1000},
+      width: 70,
+      height: 70,
       player: playerlist[socket.id],
     };
 }
