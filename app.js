@@ -29,7 +29,7 @@ io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
   socket.on('flap', function () {
     try {
-      gameloop.objects[socket.id].p.y -= 50;
+      gameloop.objects[socket.id].v.y = -250;
     } catch (e) {
     }
   });

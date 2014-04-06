@@ -11,8 +11,8 @@ function add(socket, nick) {
   gameloop.objects[socket.id] =
     {
       p: {x: x, y:20},
-      v: {x: 0, y:100},
-      a: {x: 0, y: 0},
+      v: {x: 0, y: 0},
+      a: {x: 0, y: 1000},
       player: nick,
     };
 }
@@ -49,7 +49,7 @@ function fitNewPlayerIn() {
   var free = {};
   Object.keys(playerlist).forEach(function(id) {
     var p = gameloop.objects[id];
-    var stripe = Math.floor(p.p.x/180);
+    var stripe = Math.floor((p.p.x-100)/180);
     free[stripe] = false;
   });
   
@@ -58,7 +58,7 @@ function fitNewPlayerIn() {
   while(i in free)
     i++;
   
-  return i*180;
+  return i*180+100;
 }
 
 var players = {

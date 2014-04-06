@@ -50,10 +50,6 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
       obj.p[coord] += obj.v[coord] * t;    
       // update velocity
       obj.v[coord] += obj.a[coord] * t;
-      if(obj.p[coord] < 0) {
-        obj.p[coord] = 0;
-        obj.v[coord] = - obj.v[coord];
-      }
       if(obj.p[coord] > bounds[coord]) {
         obj.p[coord] = bounds[coord];
         obj.v[coord] = - obj.v[coord];
