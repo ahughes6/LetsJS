@@ -26,7 +26,7 @@ create: function() {
           this.pipes = game.add.group();  
           this.pipes.createMultiple(20, 'pipe');
 
-          this.timer = this.game.time.events.loop(1500, this.add_row_of_pipes, this);      
+          this.timer = this.game.time.events.loop(2500, this.add_row_of_pipes, this);      
           
 
           this.score = 0;  
@@ -48,7 +48,7 @@ update: function() {
         // Make the bird jump 
 jump: function() {  
         // Add a vertical velocity to the bird
-        this.bird.body.velocity.y = -350;
+        this.bird.body.velocity.y = -325;
       },
 
       // Restart the game
@@ -66,7 +66,7 @@ add_one_pipe: function(x, y) {
     pipe.reset(x, y);
 
     // Add velocity to the pipe to make it move left
-    pipe.body.velocity.x = -200; 
+    pipe.body.velocity.x = -125; 
 
     // Kill the pipe when it's no longer visible 
     pipe.outOfBoundsKill = true;

@@ -1,0 +1,11 @@
+{
+  "name": "flappyget11",
+  "subdomain": "getflappy-getflappy",
+  "scripts": {
+    "start": ""
+  },
+  "version": "0.0.0",
+  "engines": {
+    "node": "0.10.x"
+  }
+}
