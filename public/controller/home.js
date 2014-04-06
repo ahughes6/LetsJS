@@ -3,12 +3,33 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
     $scope.objects = state;
   });
 
+  $scope.playerid = socket.id;
+  $scope.state = 0;  
+
+  $scope.flap = function(id) {
+    socket.emit('flap', id);
+  };
+
+  $scope.setupPlayer = function(nick) {
+    socket.emit('join', { nick: nick });
+    $scope.state=1;
+  }
+
+  $scope.leaveGame = function() {
+    socket.emit('leave');
+    $scope.state=0;
+  }
+
   var t0 = new Date().getTime();
 
   var myInterval = $interval(extrapolate, 10);
 
   $scope.$on("$destroy", function(){
-        $interval.cancel(myInterval);
+    $interval.cancel(myInterval);
+
+    if($scope.state == 1) {
+      socket.emit('leave');
+    }
   });
 
   function extrapolate() {

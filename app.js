@@ -42,6 +42,8 @@ io.sockets.on('connection', function (socket) {
     players.remove(socket);
     io.sockets.emit('players', players.getList());
   });
+
+  socket.emit('players', players.getList());
 });
 
 // view engine setup

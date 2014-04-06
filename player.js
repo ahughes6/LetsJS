@@ -28,7 +28,7 @@ function die(player) {
 function getList() {
   var ret = [];
   Object.keys(playerlist).forEach(function(id) {
-    ret.push({nick: playerlist[id].nick});
+    ret.push({id: id, nick: playerlist[id].nick});
   });
   return ret;
 }
