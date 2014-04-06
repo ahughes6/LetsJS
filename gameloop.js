@@ -93,9 +93,9 @@ function newton(t, obj) {
   var coords = ['x', 'y'];
   coords.forEach(function(coord) {
     // update position
-    obj.p[coord] += obj.v[coord] * t;    
+    obj.p[coord] += Math.round(obj.v[coord] * t * 100)/100;    
     // update velocity
-    obj.v[coord] += obj.a[coord] * t;
+    obj.v[coord] += Math.round(obj.a[coord] * t * 100)/100;
   });
 };
 
