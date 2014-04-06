@@ -87,7 +87,7 @@ function fitNewPlayerIn() {
   while(i in free)
     i++;
   
-  return Math.floor(i*granularity/2);
+  return Math.floor(i*granularity);
 }
 
 function updateScores() {
