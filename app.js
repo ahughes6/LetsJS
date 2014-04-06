@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes');
-var users = require('./routes/user');
+var users = require('./routes/object');
 
 var app = express();
 
@@ -23,7 +23,13 @@ gameloop.callbacks.push(function() { io.sockets.emit('state', gameloop.objects) 
 
 // set up socket.io
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
+  socket.on('flap', function (id) {
+    try {
+      gameloop.objects[id].p.y -= 50;
+    } catch (e) {
+      console.log('invalid flap for ' + id);
+    }
+  });
 });
 
 // view engine setup

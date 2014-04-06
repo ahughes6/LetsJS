@@ -11,7 +11,7 @@ var t0 = new Date().getTime();
  * The game objects
  */
 var objects = [
-    { p: { x: 0, y: 0 },  v: { x: 0, y: 10 },  a: { x: 0, y: 0 } },
+    { p: { x: 0, y: 0 },  v: { x: 0, y: 25 },  a: { x: 0, y: 0 } },
     { p: { x: 20, y: 0 }, v: { x: 10, y: 10 }, a: { x: 0, y: 0 } },
     { p: { x: 50, y: 0 }, v: { x: 0, y: 0 },   a: { x: 0, y: 5 } },
   ];
