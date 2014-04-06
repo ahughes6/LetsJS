@@ -64,6 +64,7 @@ function addpipecolumn() {
       width: pipewidth,
       height: height-(holelocation+holesize),
       color: pipecolor,
+      pipe: true,
     };
   lastpipeadded = objects[pipeid+'top'];
 }
@@ -106,6 +107,10 @@ function checkCollision(id, obj) {
   // check lower bound
   if ('player' in obj && obj.p.y > bounds.y) {
     obj.player.die();
+  }
+  if ('pipe' in obj && obj.p.x + obj.width < 0) {
+    delete objects[id];
+    return;
   }
   
   // check all other objects
