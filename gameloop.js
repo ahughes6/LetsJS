@@ -51,10 +51,24 @@ function newton(t, obj) {
  */
 function checkCollision(id, obj) {
   var bounds = {x: 600, y: 500};
+
   // check lower bound
   if (obj.p.y > bounds.y) {
     obj.player.die();
   }
+  
+  // check all other objects
+  Object.keys(objects).forEach(function(id) {
+    var o = objects[id];
+    if (o===obj)
+      return;
+    if ( (  (obj.p.x <= o.p.x && o.p.x <= obj.p.x + obj.p.width)
+         || (obj.p.x <= o.p.x + o.p.width && o.p.x + o.p.width <= obj.p.x + obj.p.width) )
+       &&(  (obj.p.y <= o.p.y && o.p.y <= obj.p.y + obj.p.height)
+         || (obj.p.y <= o.p.y + o.p.height && o.p.y + o.p.height <= obj.p.y + obj.p.height) ) ) {
+      obj.player.die();
+    }
+  });
 }
 
 /**
