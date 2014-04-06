@@ -56,38 +56,48 @@ function getPlayer(id) {
 function fitNewPlayerIn() {
   // create list of all occupied stripes
   var free = {};
-  var granularity = 200;
-  var padding = 30;
+  var granularity = 50;
+  var padding = 20;
 
   Object.keys(gameloop.objects).forEach(function(id) {
     var obj = gameloop.objects[id];
     var stripe;
  
     var stripes = Math.floor((obj.width+2*padding)/granularity) + 1;
-    if(Math.floor(obj.p.x) < 0) {
-      stripes++;
-    }
     if(Math.floor(obj.p.x) % granularity > 0) {
       stripes++;
     }
 
-    console.log('pipe: ' + id);
-    console.log('pipe x: ' + obj.p.x);
-    console.log('stripes: ' + stripes);
-
     for(var i=0;i < stripes; ++i) {
       stripe = Math.floor((obj.p.x-padding+i*granularity)/granularity);
-      free[stripe] = false;
-      console.log('stripe: ' + stripe);
+      if(stripe >= 0) {
+        free[stripe] = false;
+      }
     }
   });
   
   // find first free stripe
   var i = 0;
-  while(i in free)
-    i++;
-  
-  return Math.floor(i*granularity);
+  var noFreeFound = true;
+  while(noFreeFound) {
+    while(i in free) {
+      i++;
+    }
+    if(i == 0) {
+      if(i+1 in free) {
+        (i++)++;
+      }
+      else {
+        padding = 20;
+        noFreeFound = false;
+      }
+    }
+    else {
+      padding = 0;
+      noFreeFound = false;
+    }
+  }
+  return Math.floor(i*granularity+padding);
 }
 
 function updateScores() {
