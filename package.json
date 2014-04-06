@@ -1,6 +1,6 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "letsjs",
+  "version": "0.0.1-1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -16,7 +16,7 @@
     "stylus": "0.42.3",
     "socket.io": "0.9.16"
   },
-  "subdomain": "letjs",
+  "subdomain": "letsjs",
   "engines": {
     "node": "0.10.x"
   }
