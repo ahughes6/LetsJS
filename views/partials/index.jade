@@ -1,4 +1,4 @@
-div(style='width: 100%;height: 100%;position: absolute;top:0;left:0;' ng-click='flap()')
+div(class='visible-lg',style='width: 100%;height: 100%;position: absolute;top:0;left:0;' ng-click='flap()')
   div(style='width: 100%;height: 100%;position: absolute;top:0px;left:0px;' ng-click='flap()')
     div(ng-repeat='o in objects',style='position:absolute;top:{{o.p.y}}px;left:{{o.p.x}}px;width:{{o.width}}px;height:{{o.height}}px;color:white;text-align:center;' ng-click='flap()')
       div(style='background:url("images/{{ o.player ? "bird.png" : "pipe.png" }}");width:{{o.width}}px;height:{{o.height}}px;-webkit-transform:rotate({{o.v.y>350?45:0}}deg);' ng-click='flap()')
@@ -8,22 +8,24 @@ div(style='width: 100%;height: 100%;position: absolute;top:0;left:0;' ng-click='
 
 div(class='container-fluid')
   div(class='row')
-    div(class='col-md-4 col-md-offset-8 {{state==1?"visible-lg":""}}')
+    div(class='col-md-4 col-md-offset-8')
       h1(style='font-size: 70px;',ng-click='flap()')
         strong Flappy Birds
       h2(ng-show='state==1 || score>0').
         Score: {{score}}
   
   div(class='row')
-    div(class='col-md-2 col-md-offset-10 {{state==1?"visible-lg":""}}')
+    div(class='col-md-2 col-md-offset-10')
       div(ng-show='connecting')
         h2 connecting ...
       div(ng-show='state==0 && !connecting',style='color: black;')
         form(role='form')
           input(type='text', ng-model='nick', placeholder='Your Name', class='input-lg form-control', autofocus)
           button(ng-click='setupPlayer(nick)', type='submit', class='btn-lg btn-primary btn btn-block') Play
-      div(ng-hide='state==0')
+      div(ng-hide='state==0',class='visible-lg')
         button(ng-click='leaveGame()', type='submit', class='btn-lg btn-primary btn btn-block') Spectate
+      div(ng-hide='state==0', class='hidden-lg')
+        button(ng-click='flap()', type='submit', style='height:200px', class='btn-lg btn-primary btn btn-block') Flap
   
   div(class='row' ng-hide="true")
     div(class='col-md-2  col-md-offset-10',ng-controller='PlayerListController')
