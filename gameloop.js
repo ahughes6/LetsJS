@@ -12,7 +12,8 @@ var t0 = new Date().getTime();
 /**
  * The game objects
  */
-var objects = {};
+var objects = {
+};
 
 /**
  * The gameloop callbacks, to be called after each loop
@@ -62,11 +63,14 @@ function checkCollision(id, obj) {
     var o = objects[id];
     if (o===obj)
       return;
-    if ( (  (obj.p.x <= o.p.x && o.p.x <= obj.p.x + obj.p.width)
-         || (obj.p.x <= o.p.x + o.p.width && o.p.x + o.p.width <= obj.p.x + obj.p.width) )
-       &&(  (obj.p.y <= o.p.y && o.p.y <= obj.p.y + obj.p.height)
-         || (obj.p.y <= o.p.y + o.p.height && o.p.y + o.p.height <= obj.p.y + obj.p.height) ) ) {
-      obj.player.die();
+    if ( (  (obj.p.x <= o.p.x && o.p.x <= obj.p.x + obj.width)
+         || (obj.p.x <= o.p.x + o.width && o.p.x + o.width <= obj.p.x + obj.width) )
+       &&(  (obj.p.y <= o.p.y && o.p.y <= obj.p.y + obj.height)
+         || (obj.p.y <= o.p.y + o.height && o.p.y + o.height <= obj.p.y + obj.height) ) ) {
+      if ('player' in o)
+        o.player.die();
+      if ('player' in obj)
+        obj.player.die();
     }
   });
 }
