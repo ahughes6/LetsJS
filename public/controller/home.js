@@ -4,7 +4,6 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
   });
   
   $scope.flap = function(id) {
-    console.log('flap ' + id);
     socket.emit('flap', id);
   };
 
@@ -12,10 +11,8 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
   var t0 = new Date().getTime();
 
   var myInterval = $interval(extrapolate, 10);
-  console.log("Interval added!");
 
   $scope.$on("$destroy", function(){
-        console.log("Destroyed!");
         $interval.cancel(myInterval);
   });
 

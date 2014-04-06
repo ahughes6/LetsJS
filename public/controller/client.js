@@ -2,17 +2,16 @@ angular.module('letsjs.controllers').controller('ClientController', function($sc
   socket.on('state', function(state) {
     $scope.objects = state;
   });
-
-
+  
+  socket.emit('join', { nick: 'john doe' });
 
   var t0 = new Date().getTime();
 
   var myInterval = $interval(extrapolate, 10);
-  console.log("Interval added!");
 
   $scope.$on("$destroy", function(){
-        console.log("Destroyed!");
         $interval.cancel(myInterval);
+        socket.emit('leave');
   });
 
   function extrapolate() {

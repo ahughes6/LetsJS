@@ -16,12 +16,16 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 app.set('server', server);
 
+// init players
+var players = require('./player');
+
 // start gameloop
 var gameloop = require('./gameloop');
 gameloop.start();
 gameloop.callbacks.push(function() { io.sockets.emit('state', gameloop.objects) });
 
 // set up socket.io
+io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
   socket.on('flap', function (id) {
     try {
@@ -29,6 +33,18 @@ io.sockets.on('connection', function (socket) {
     } catch (e) {
       console.log('invalid flap for ' + id);
     }
+  });
+  socket.on('join', function (data) {
+    players.add(socket, data.nick);
+    io.sockets.emit('players', players.getList());
+  });
+  socket.on('leave', function (data) {
+    players.remove(socket);
+    io.sockets.emit('players', players.getList());
+  });
+  socket.on('disconnect', function () {
+    players.remove(socket);
+    io.sockets.emit('players', players.getList());
   });
 });
 
