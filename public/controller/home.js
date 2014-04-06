@@ -3,8 +3,20 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
     $scope.objects = state;
   });
 
+  socket.on('die', function() {
+    $scope.leaveGame();
+  });
+
   $scope.playerid = socket.id;
   $scope.state = 0;  
+  
+  $scope.offline = 0;
+  socket.on('disconnect', function() {
+    $scope.offline = 1;
+  });
+  socket.on('connect', function() {
+    $scope.offline = 0;
+  });
 
   $scope.flap = function(id) {
     socket.emit('flap', id);
@@ -18,7 +30,6 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
   $scope.leaveGame = function() {
     socket.emit('leave');
     $scope.state=0;
-    $scope.nick='';
   }
 
   var t0 = new Date().getTime();
@@ -50,10 +61,6 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
       obj.p[coord] += obj.v[coord] * t;    
       // update velocity
       obj.v[coord] += obj.a[coord] * t;
-      if(obj.p[coord] > bounds[coord]) {
-        obj.p[coord] = bounds[coord];
-        obj.v[coord] = - obj.v[coord];
-      }
     });
   };
 });
