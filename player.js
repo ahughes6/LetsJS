@@ -48,10 +48,30 @@ function getPlayer(id) {
 function fitNewPlayerIn() {
   // create list of all occupied stripes
   var free = {};
-  Object.keys(playerlist).forEach(function(id) {
-    var p = gameloop.objects[id];
-    var stripe = Math.floor((p.p.x-100)/180);
-    free[stripe] = false;
+  var granularity = 200;
+  var padding = 30;
+
+  Object.keys(gameloop.objects).forEach(function(id) {
+    var obj = gameloop.objects[id];
+    var stripe;
+ 
+    var stripes = Math.floor((obj.width+2*padding)/granularity) + 1;
+    if(Math.floor(obj.p.x) < 0) {
+      stripes++;
+    }
+    if(Math.floor(obj.p.x) % granularity > 0) {
+      stripes++;
+    }
+
+    console.log('pipe: ' + id);
+    console.log('pipe x: ' + obj.p.x);
+    console.log('stripes: ' + stripes);
+
+    for(var i=0;i < stripes; ++i) {
+      stripe = Math.floor((obj.p.x-padding+i*granularity)/granularity);
+      free[stripe] = false;
+      console.log('stripe: ' + stripe);
+    }
   });
   
   // find first free stripe
@@ -59,7 +79,7 @@ function fitNewPlayerIn() {
   while(i in free)
     i++;
   
-  return i*180+100;
+  return Math.floor(i*granularity/2);
 }
 
 var players = {
