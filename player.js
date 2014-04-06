@@ -9,6 +9,8 @@ function add(socket, nick, die) {
       id: socket.id,
       nick: nick,
       die: die,
+      start: new Date().getTime(),
+      score: 0,
     };
   gameloop.objects[socket.id] =
     {
@@ -30,7 +32,13 @@ function remove(socket) {
 function getList() {
   var ret = [];
   Object.keys(playerlist).forEach(function(id) {
-    ret.push({id: id, nick: playerlist[id].nick});
+    ret.push(
+      {
+        id: id,
+        nick: playerlist[id].nick,
+        score: playerlist[id].score,
+      }
+    );
   });
   return ret;
 }
@@ -82,11 +90,18 @@ function fitNewPlayerIn() {
   return Math.floor(i*granularity/2);
 }
 
+function updateScores() {
+    Object.keys(playerlist).forEach(function(id) { 
+      playerlist[id].score = current - playerlist[id].start;
+    });
+}
+
 var players = {
   add: add,
   remove: remove,
   getList: getList,
   getPlayer: getPlayer,
+  updateScores: updateScores,
 }
 
 module.exports = players;
