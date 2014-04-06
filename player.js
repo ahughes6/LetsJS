@@ -1,38 +1,25 @@
-var playerlist = [];
+var playerlist = {};
 var gameloop = require('./gameloop');
 
 function add(socket, nick) {
-  playerlist.push({
-    socket: socket,
-    nick: nick,
-  });
-  gameloop.objects.push(
+  var x = fitNewPlayerIn();
+  playerlist[socket.id] = 
     {
-      p: {x: 0, y: 0},
-      v: {x: 0, y:10},
+      socket: socket,
+      nick: nick,
+    };
+  gameloop.objects[socket.id] =
+    {
+      p: {x: x, y:20},
+      v: {x: 0, y:100},
       a: {x: 0, y: 0},
       player: nick,
-    }
-  );
+    };
 }
 
 function remove(socket) {
-  var toBeRemoved = null;
-  var nick = null;
-  playerlist.forEach(function(p) {
-    if (p.socket===socket)
-      toBeRemoved = p;
-  });
-  if (toBeRemoved) {
-    playerlist.splice(playerlist.indexOf(toBeRemoved), 1);
-    gameloop.objects.forEach(function(o) {
-      if (o.nick==nick) {
-        toBeRemoved = o;
-      }
-    });
-    if (toBeRemoved)
-      gameloop.objects.splice(toBeRemoved, 1);
-  }
+  delete playerlist[socket.id];
+  delete gameloop.objects[socket.id];
 }
 
 function die(player) {
@@ -41,10 +28,37 @@ function die(player) {
 
 function getList() {
   var ret = [];
-  playerlist.forEach(function(p) {
-    ret.push({nick: p.nick});
+  Object.keys(playerlist).forEach(function(id) {
+    ret.push({id: id, nick: playerlist[id].nick});
   });
   return ret;
+}
+
+function getPlayer(id) {
+  return playerlist[id];
+}
+
+/**
+ * This function examines the x-positions of all
+ * existing players and returns the first player-free
+ * 180px-width stripe of the game where there is no
+ * player.
+ */
+function fitNewPlayerIn() {
+  // create list of all occupied stripes
+  var free = {};
+  Object.keys(playerlist).forEach(function(id) {
+    var p = gameloop.objects[id];
+    var stripe = Math.floor(p.p.x/180);
+    free[stripe] = false;
+  });
+  
+  // find first free stripe
+  var i = 0;
+  while(i in free)
+    i++;
+  
+  return i*180;
 }
 
 var players = {

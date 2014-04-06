@@ -27,11 +27,10 @@ gameloop.callbacks.push(function() { io.sockets.emit('state', gameloop.objects) 
 // set up socket.io
 io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
-  socket.on('flap', function (id) {
+  socket.on('flap', function () {
     try {
-      gameloop.objects[id].p.y -= 50;
+      gameloop.objects[socket.id].p.y -= 50;
     } catch (e) {
-      console.log('invalid flap for ' + id);
     }
   });
   socket.on('join', function (data) {
@@ -46,6 +45,8 @@ io.sockets.on('connection', function (socket) {
     players.remove(socket);
     io.sockets.emit('players', players.getList());
   });
+
+  socket.emit('players', players.getList());
 });
 
 // view engine setup

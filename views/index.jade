@@ -1,10 +1,5 @@
 extends layout
 
 block content
-  div(style='float: right;width: 100px;',ng-controller='PlayerListController')
-    h1 players
-    ul
-      li(ng-repeat='p in players').
-        {{$index}}: {{p.nick}}
   div(ng-view)
 
