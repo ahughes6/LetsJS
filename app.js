@@ -22,7 +22,7 @@ var players = require('./player');
 // start gameloop
 var gameloop = require('./gameloop');
 gameloop.start();
-gameloop.callbacks.push(function() { io.sockets.emit('state', gameloop.objects) });
+//gameloop.callbacks.push(function() { io.sockets.emit('state', gameloop.objects) });
 
 // set up socket.io
 io.set('log level', 1);
@@ -39,6 +39,9 @@ io.sockets.on('connection', function (socket) {
     });
     io.sockets.emit('players', players.getList());
   });
+  socket.on('state', function() {
+    socket.emit('state', gameloop.objects);
+  });
   socket.on('leave', function (data) {
     players.remove(socket);
     io.sockets.emit('players', players.getList());
@@ -49,6 +52,7 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.emit('players', players.getList());
+  socket.emit('state', gameloop.objects);
 });
 
 // view engine setup

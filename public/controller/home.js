@@ -1,6 +1,7 @@
 angular.module('letsjs.controllers').controller('HomeController', function($scope, $interval, socket) {
   socket.on('state', function(state) {
     $scope.objects = state;
+    socket.emit('state');
   });
 
   socket.on('die', function() {
@@ -26,7 +27,7 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
     socket.emit('join', { nick: nick });
     $scope.state=1;
     tStart = new Date().getTime();
-    updateScoreInterval = $interval(updateScore, 100);
+    updateScoreInterval = $interval(updateScore, 200);
   }
 
   $scope.leaveGame = function() {
@@ -38,7 +39,7 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
   var t0 = new Date().getTime();
   var tStart = new Date().getTime();
 
-  var myInterval = $interval(extrapolate, 10);
+  var myInterval = $interval(extrapolate, 25);
 
   $scope.$on("$destroy", function(){
     $interval.cancel(myInterval);

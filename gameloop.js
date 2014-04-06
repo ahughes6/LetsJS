@@ -137,7 +137,7 @@ function start() {
       callbacks.forEach(function(cb) { cb() });
       task_is_running = false;
     }
-  }, 100);
+  }, 10);
 }
 
 /**
