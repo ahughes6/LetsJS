@@ -46,14 +46,15 @@ function addpipecolumn() {
   var pipeid = 'pipe' + lastpipeid;
   var holesize = height-(height/15)*difficulty;
   var holelocation = Math.floor(Math.random()*(height-holesize));
+  var pipeheight = 2000;
   ++lastpipeid;
   objects[pipeid+'top'] =
     {
-      p: {x: width, y:0},
+      p: {x: width, y:holelocation-pipeheight},
       v: {x: -pipespeed, y: 0},
       a: {x: 0, y: 0},
       width: pipewidth,
-      height: holelocation,
+      height: pipeheight,
       color: pipecolor,
       pipe: true,
     };
@@ -63,7 +64,7 @@ function addpipecolumn() {
       v: {x: -pipespeed, y: 0},
       a: {x: 0, y: 0},
       width: pipewidth,
-      height: height-(holelocation+holesize),
+      height: 2000,
       color: pipecolor,
       pipe: true,
     };
