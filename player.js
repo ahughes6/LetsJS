@@ -1,38 +1,24 @@
-var playerlist = [];
+var playerlist = {};
 var gameloop = require('./gameloop');
 
 function add(socket, nick) {
-  playerlist.push({
-    socket: socket,
-    nick: nick,
-  });
-  gameloop.objects.push(
+  playerlist[socket.id] = 
+    {
+      socket: socket,
+      nick: nick,
+    };
+  gameloop.objects[socket.id] =
     {
       p: {x: 0, y: 0},
       v: {x: 0, y:10},
       a: {x: 0, y: 0},
       player: nick,
-    }
-  );
+    };
 }
 
 function remove(socket) {
-  var toBeRemoved = null;
-  var nick = null;
-  playerlist.forEach(function(p) {
-    if (p.socket===socket)
-      toBeRemoved = p;
-  });
-  if (toBeRemoved) {
-    playerlist.splice(playerlist.indexOf(toBeRemoved), 1);
-    gameloop.objects.forEach(function(o) {
-      if (o.nick==nick) {
-        toBeRemoved = o;
-      }
-    });
-    if (toBeRemoved)
-      gameloop.objects.splice(toBeRemoved, 1);
-  }
+  delete playerlist[socket.id];
+  delete gameloop.objects[socket.id];
 }
 
 function die(player) {
@@ -41,10 +27,14 @@ function die(player) {
 
 function getList() {
   var ret = [];
-  playerlist.forEach(function(p) {
-    ret.push({nick: p.nick});
+  Object.keys(playerlist).forEach(function(id) {
+    ret.push({nick: playerlist[id].nick});
   });
   return ret;
+}
+
+function getPlayer(id) {
+  return playerlist[id];
 }
 
 var players = {

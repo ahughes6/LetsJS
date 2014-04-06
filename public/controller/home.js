@@ -2,11 +2,6 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
   socket.on('state', function(state) {
     $scope.objects = state;
   });
-  
-  $scope.flap = function(id) {
-    socket.emit('flap', id);
-  };
-
 
   var t0 = new Date().getTime();
 
@@ -20,8 +15,8 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
     var current = new Date().getTime(); // get current time
     var t = (current - t0) / 1000.0; // calculate time passed since last execution (in seconds)
     t0 = current; // save current time for next execution
-    ($scope.objects || []).forEach(function(object) {
-      newton(t,object);
+    Object.keys($scope.objects || {}).forEach(function(id) {
+      newton(t,$scope.objects[id]);
     });
   };
 
