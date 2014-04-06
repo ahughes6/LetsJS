@@ -8,9 +8,13 @@ angular.module('letsjs', ['ngRoute', 'letsjs.controllers', 'letsjs.services']).
         templateUrl: 'partials/index',
         controller: 'HomeController'
       }).
+      when('/client', {
+        templateUrl: 'partials/index',
+        controller: 'ClientController'
+      }).
       otherwise({
         redirectTo: '/'
       });
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
   }]);
 
