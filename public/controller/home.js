@@ -1,6 +1,7 @@
 angular.module('letsjs.controllers').controller('HomeController', function($scope, $interval, socket) {
   var lastUpdate = new Date().getTime();
   socket.on('state', function(objects) {
+    $scope.connecting = false;
     $scope.objects = objects;
     $scope.objectcount = Object.keys(objects).length;
     var currentTime = new Date().getTime();
@@ -8,6 +9,8 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
     lastUpdate = currentTime;
     socket.emit('state');
   });
+  
+  $scope.connecting = true;
   
   socket.on('die', function() {
     $scope.leaveGame();

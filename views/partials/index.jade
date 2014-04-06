@@ -16,7 +16,9 @@ div(class='container-fluid')
   
   div(class='row')
     div(class='col-md-2 col-md-offset-10')
-      div(ng-hide='state==1',style='color: black;')
+      div(ng-show='connecting')
+        h2 connecting ...
+      div(ng-show='state==0 && !connecting',style='color: black;')
         form(role='form')
           input(type='text', ng-model='nick', placeholder='Your Name', class='input-lg form-control', autofocus)
           button(ng-click='setupPlayer(nick)', type='submit', class='btn-lg btn-primary btn btn-block') Play
