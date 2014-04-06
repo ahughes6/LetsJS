@@ -8,6 +8,8 @@ div(class='container-fluid')
     div(class='col-md-4 col-md-offset-8')
       h1(style='font-size: 70px;',ng-click='flap()')
         strong Flappy Birds
+      h2(ng-show='state==1 || score>0').
+        Score: {{score}}
   
   div(class='row')
     div(class='col-md-2 col-md-offset-10')
