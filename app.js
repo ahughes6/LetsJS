@@ -28,7 +28,10 @@ gameloop.callbacks.push(function() { io.sockets.emit('state', gameloop.objects) 
 io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
   socket.on('flap', function () {
-    gameloop.objects[socket.id].p.y -= 50;
+    try {
+      gameloop.objects[socket.id].p.y -= 50;
+    } catch (e) {
+    }
   });
   socket.on('join', function (data) {
     players.add(socket, data.nick);
