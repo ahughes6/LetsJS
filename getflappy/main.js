@@ -48,7 +48,7 @@ update: function() {
         // Make the bird jump 
 jump: function() {  
         // Add a vertical velocity to the bird
-        this.bird.body.velocity.y = -325;
+        this.bird.body.velocity.y = -400;
       },
 
       // Restart the game
@@ -66,7 +66,7 @@ add_one_pipe: function(x, y) {
     pipe.reset(x, y);
 
     // Add velocity to the pipe to make it move left
-    pipe.body.velocity.x = -125; 
+    pipe.body.velocity.x = -100; 
 
     // Kill the pipe when it's no longer visible 
     pipe.outOfBoundsKill = true;
