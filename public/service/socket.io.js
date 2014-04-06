@@ -1,4 +1,4 @@
-angular.module('letsjs.services', []).factory('socket', function ($rootScope) {
+angular.module('letsjs.services').factory('socket', function ($rootScope) {
   var socket = io.connect();
   return {
     on: function (eventName, callback) {
