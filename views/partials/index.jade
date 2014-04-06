@@ -1,22 +1,26 @@
-h1.
-  the current state
-div
-  p
-    input(ng-hide='state==1' type='text', ng-model='nick')
-    button(ng-hide='state==1' ng-click='setupPlayer(nick)') Play
-    button(ng-hide='state==0' ng-click='leaveGame()') Spectate
-  p.
-    Page state: {{state}} 
-div
-  p
-    input(type='text',ng-model='flapid')
-    button(ng-click='flap(flapid)').
-      flap!
-  p.
-    the current game state is shown in the grey area below:
-  div(style='position:relative;background:#ddd;width:90%;height:500px;overflow:hidden;')
-    div(ng-repeat='o in objects',style='position:absolute;top:{{o.p.y}}px;left:{{o.p.x}}px;width:50px;height:50px;background:black;color:white;').
-      {{o.player}}
-  p.
-    {{ objects }}
+div(style='width: 100%;height: 100%;position: absolute;top:0;left:0;' ng-click='flap()')
+  div(ng-repeat='o in objects',style='position:absolute;top:{{o.p.y}}px;left:{{o.p.x}}px;width:70px;height:70px;background:white;border:5px solid black;color:white;text-align:center;padding-left:70px;padding-top:70px;')
+    strong {{o.player}}
+
+div(class='container-fluid')
+  div(class='row')
+    div(class='col-md-4 col-md-offset-8')
+      h1(style='font-size: 70px;',ng-click='flap()')
+        strong Flappy Birds
+  
+  div(class='row')
+    div(class='col-md-2 col-md-offset-10')
+      div(ng-hide='state==1',style='color: black;')
+        form(role='form')
+          input(type='text', ng-model='nick', placeholder='Your Name', class='input-lg form-control', autofocus)
+          button(ng-click='setupPlayer(nick)', type='submit', class='btn-lg btn-primary btn btn-block') Play
+      div(ng-hide='state==0')
+        button(ng-click='leaveGame()', type='submit', class='btn-lg btn-primary btn btn-block') Spectate
+  
+  div(class='row')
+    div(class='col-md-2  col-md-offset-10',ng-controller='PlayerListController')
+      h2(ng-click='flap()') players
+      ul
+        li(ng-repeat='p in players').
+          {{p.nick}}
 

@@ -18,6 +18,7 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
   $scope.leaveGame = function() {
     socket.emit('leave');
     $scope.state=0;
+    $scope.nick='';
   }
 
   var t0 = new Date().getTime();
