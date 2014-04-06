@@ -2,9 +2,11 @@ h1.
   the current state
 div
   p
-    a(class='button', href='#/client') Play
-  p
-    a(class='button', href='#/') Spectate
+    input(ng-hide='state==1' type='text', ng-model='nick')
+    button(ng-hide='state==1' ng-click='setupPlayer(nick)') Play
+    button(ng-hide='state==0' ng-click='leaveGame()') Spectate
+  p.
+    Page state: {{state}} 
 div
   p
     input(type='text',ng-model='flapid')
@@ -14,7 +16,7 @@ div
     the current game state is shown in the grey area below:
   div(style='position:relative;background:#ddd;width:90%;height:500px;overflow:hidden;')
     div(ng-repeat='o in objects',style='position:absolute;top:{{o.p.y}}px;left:{{o.p.x}}px;width:50px;height:50px;background:black;color:white;').
-      {{$index}}
+      {{o.player}}
   p.
     {{ objects }}
 

@@ -10,8 +10,7 @@ var t0 = new Date().getTime();
 /**
  * The game objects
  */
-var objects = [
-  ];
+var objects = {};
 
 /**
  * The gameloop callbacks, to be called after each loop
@@ -28,7 +27,7 @@ function loop() {
   t0 = current; // save current time for next execution
   
   // update object positions
-  objects.forEach(function(obj) { newton(t, obj); });
+  Object.keys(objects).forEach(function(id) { newton(t, objects[id]); });
 }
 
 /**
