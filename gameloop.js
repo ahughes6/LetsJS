@@ -55,6 +55,7 @@ function addpipecolumn() {
       width: pipewidth,
       height: holelocation,
       color: pipecolor,
+      pipe: true,
     };
   objects[pipeid+'bot'] =
     {
@@ -107,13 +108,14 @@ function checkCollision(id, obj) {
   // check lower bound
   if ('player' in obj && obj.p.y > bounds.y) {
     obj.player.die();
+    return;
   }
   if ('pipe' in obj && obj.p.x + obj.width < 0) {
     delete objects[id];
     return;
   }
   
-  // check all other objects
+  // check for collisions with objects
   Object.keys(objects).forEach(function(id) {
     var o = objects[id];
     if (o===obj)
