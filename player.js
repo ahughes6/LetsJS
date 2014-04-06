@@ -85,7 +85,7 @@ function fitNewPlayerIn() {
     }
     if(i == 0) {
       if(i+1 in free) {
-        (i++)++;
+        i+=2;
       }
       else {
         padding = 20;
