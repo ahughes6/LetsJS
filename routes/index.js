@@ -1,6 +1,6 @@
 /* GET home page. */
 exports.index = function(req, res){
-  res.render('index', { title: 'Let\'s JS' });
+  res.render('index', { title: 'Get Flappy!' });
 };
 
 exports.partials = function (req, res) {
