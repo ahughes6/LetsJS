@@ -24,3 +24,7 @@ div(class='container-fluid')
         li(ng-repeat='p in players').
           {{p.nick}}
 
+div(ng-show='offline' class='alert alert-danger' style='width: 350px;position: absolute;left:50%;top:200px;top:400px;margin-left:-200px;')
+  h1 Lost connection
+  p Sorry, I lost the connection to the server. Hang on ...
+  

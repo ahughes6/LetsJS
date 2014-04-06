@@ -9,6 +9,14 @@ angular.module('letsjs.controllers').controller('HomeController', function($scop
 
   $scope.playerid = socket.id;
   $scope.state = 0;  
+  
+  $scope.offline = 0;
+  socket.on('disconnect', function() {
+    $scope.offline = 1;
+  });
+  socket.on('connect', function() {
+    $scope.offline = 0;
+  });
 
   $scope.flap = function(id) {
     socket.emit('flap', id);
