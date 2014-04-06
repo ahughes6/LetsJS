@@ -1,12 +1,8 @@
-angular.module('letsjs.controllers').controller('HomeController', function($scope, $interval, socket) {
+angular.module('letsjs.controllers').controller('ClientController', function($scope,$interval,socket) {
   socket.on('state', function(state) {
     $scope.objects = state;
   });
-  
-  $scope.flap = function(id) {
-    console.log('flap ' + id);
-    socket.emit('flap', id);
-  };
+
 
 
   var t0 = new Date().getTime();
