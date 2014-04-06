@@ -2,8 +2,6 @@
  * The gameloop
  */
 
-var players = require('./player');
-
 /**
  * Board Variables
  */
@@ -85,6 +83,13 @@ function loop() {
   // update object positions
   Object.keys(objects).forEach(function(id) { newton(t, objects[id]); });
   Object.keys(objects).forEach(function(id) { checkCollision(id, objects[id]); });
+
+  // update player scores
+  Object.keys(objects).forEach(function(id) {
+    if ('player' in objects[id]) {
+      objects[id].player.score = Math.round((current - objects[id].player.start) / 1000);
+    }
+  });
 }
 
 /**
