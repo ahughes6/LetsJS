@@ -1,9 +1,14 @@
 angular.module('letsjs.controllers').controller('HomeController', function($scope, $interval, socket) {
-  socket.on('state', function(state) {
-    $scope.objects = state;
+  var lastUpdate = new Date().getTime();
+  socket.on('state', function(objects) {
+    $scope.objects = objects;
+    $scope.objectcount = Object.keys(objects).length;
+    var currentTime = new Date().getTime();
+    $scope.latency = Math.round(currentTime - lastUpdate) + "ms";
+    lastUpdate = currentTime;
     socket.emit('state');
   });
-
+  
   socket.on('die', function() {
     $scope.leaveGame();
   });
